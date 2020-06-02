@@ -17,7 +17,6 @@ namespace CryptStr
         [Command(Description = "Encrypt string of value.")]
         public int Enc(
             [Argument] string value,
-            [Option('d')] bool decrypt,
             [Option('k')] string key,
             [Option('v')] string iv
         )
@@ -41,7 +40,6 @@ namespace CryptStr
         [Command(Description = "Encrypt string of value.")]
         public int Dec(
             [Argument] string value,
-            [Option('d')] bool decrypt,
             [Option('k')] string key,
             [Option('v')] string iv
         )
@@ -60,7 +58,7 @@ namespace CryptStr
             return 0;
         }
 
-        [Command(Description = "Generate Key and IV.")]
+        [Command(Description = "Generate key and IV to file.")]
         public void Gen()
         {
             var provider = new TripleDESCryptoServiceProvider();
@@ -72,7 +70,7 @@ namespace CryptStr
                 IV = Convert.ToBase64String(provider.IV)
             };
             File.WriteAllText(
-                Directory.GetCurrentDirectory(),
+                Path.Combine(Directory.GetCurrentDirectory(), "cryptstr.json"),
                 JsonConvert.SerializeObject(keyAndIV)
             );
         }
