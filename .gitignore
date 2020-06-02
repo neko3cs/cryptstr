@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Additional files of neko3cs
+*.json
+
 # User-specific files
 *.rsuser
 *.suo
