@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptStr", "CryptStr.csproj", "{9FABB83F-66E3-41ED-AAFD-F49AE6FAE50A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptStr", "CryptStr\CryptStr.csproj", "{9FABB83F-66E3-41ED-AAFD-F49AE6FAE50A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
