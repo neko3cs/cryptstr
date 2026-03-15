@@ -42,7 +42,7 @@ namespace CryptStr
             using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
             using (var streamReader = new StreamReader(cryptoStream))
             {
-                return streamReader.ReadLine();
+                return streamReader.ReadToEnd();
             }
         }
 
