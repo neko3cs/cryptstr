@@ -17,8 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cocona" Version="1.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ConsoleAppFramework" Version="5.7.13">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
