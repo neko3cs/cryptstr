@@ -77,6 +77,7 @@ namespace CryptStr
         {
             nameof(SupportAlgorithms.TripleDES) => new TripleDESCryptor(key, iv),
             nameof(SupportAlgorithms.DES) => new DESCryptor(key, iv),
+            nameof(SupportAlgorithms.AES256) => new AES256Cryptor(key, iv),
             _ => throw new ArgumentException("Unsupported algorithms.")
         };
 
@@ -84,6 +85,7 @@ namespace CryptStr
         {
             nameof(SupportAlgorithms.TripleDES) => TripleDESCryptor.Generate(),
             nameof(SupportAlgorithms.DES) => DESCryptor.Generate(),
+            nameof(SupportAlgorithms.AES256) => AES256Cryptor.Generate(),
             _ => throw new ArgumentException("Unsupported algorithms.")
         };
     }

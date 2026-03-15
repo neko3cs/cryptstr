@@ -11,15 +11,19 @@ namespace CryptStr
 Support algorithms kind is here.
 - TripleDES (default)
 - DES
+- AES256
 ";
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (Enum.GetNames<SupportAlgorithms>().Contains((string)value))
+            if (value is string algorithm && IsSupported(algorithm))
             {
                 return ValidationResult.Success;
             }
             return new ValidationResult(InvalidMessage);
         }
+
+        internal static bool IsSupported(string value) =>
+            Enum.GetNames<SupportAlgorithms>().Contains(value);
     }
 }

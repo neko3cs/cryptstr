@@ -3,6 +3,7 @@
     public enum SupportAlgorithms
     {
         TripleDES,
-        DES
+        DES,
+        AES256
     }
 }
