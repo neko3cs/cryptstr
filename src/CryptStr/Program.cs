@@ -33,7 +33,7 @@ namespace CryptStr
         )
         {
             var cryptor = AlgorithmRegistry.CreateCryptor(key, iv, algorithms);
-            Console.WriteLine(cryptor.Encrypt(value));
+            Console.Write(cryptor.Encrypt(value));
             return 0;
         }
 
@@ -52,7 +52,7 @@ namespace CryptStr
         )
         {
             var cryptor = AlgorithmRegistry.CreateCryptor(key, iv, algorithms);
-            Console.WriteLine(cryptor.Decrypt(value));
+            Console.Write(cryptor.Decrypt(value));
             return 0;
         }
 

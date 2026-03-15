@@ -38,15 +38,18 @@ public class ProgramTests
     [Fact]
     public void Encrypt_ShouldWriteEncryptedValueToConsole()
     {
+        var plainText = "hello world";
         var (key, iv) = TripleDESCryptor.Generate();
+        var cryptor = new TripleDESCryptor(key, iv);
+        var encrypted = cryptor.Encrypt(plainText);
 
         var (result, output) = CaptureConsoleOutput(() =>
-            Program.Encrypt("hello world", key, iv, nameof(SupportAlgorithms.TripleDES))
+            Program.Encrypt(plainText, key, iv, nameof(SupportAlgorithms.TripleDES))
         );
 
         result.ShouldBe(0);
-        output.Trim().ShouldNotBeNullOrEmpty();
-        output.Trim().ShouldNotBe("hello world");
+        output.ShouldBe(encrypted);
+        output.ShouldNotEndWith(Environment.NewLine);
     }
 
     [Fact]
@@ -62,7 +65,8 @@ public class ProgramTests
         );
 
         result.ShouldBe(0);
-        output.Trim().ShouldBe(plainText);
+        output.ShouldBe(plainText);
+        output.ShouldNotEndWith(Environment.NewLine);
     }
 
     [Fact]
