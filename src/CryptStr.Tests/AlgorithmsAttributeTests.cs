@@ -34,4 +34,17 @@ public class AlgorithmsAttributeTests
         result.ErrorMessage.ShouldContain("DES");
         result.ErrorMessage.ShouldContain(nameof(SupportAlgorithms.AES256));
     }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData(123)]
+    public void IsValid_ShouldRejectNonStringValues(object value)
+    {
+        var attribute = new AlgorithmsAttribute();
+
+        var result = attribute.GetValidationResult(value, new ValidationContext(new object()));
+
+        result.ShouldNotBe(ValidationResult.Success);
+        result.ShouldNotBeNull();
+    }
 }
