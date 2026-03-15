@@ -12,6 +12,7 @@ First, you have to generate config file.
 
 ```
 $ cryptstr gen
+$ cryptstr gen -a <algorithms>
 ```
 
 Then, config file (named ```cryptstr.json```) has generated.
@@ -26,14 +27,22 @@ I recommend you might register to environment variable.
 
 That would be easier to use this command.
 
+### Supported Algorithms
+
+- `TripleDES` (default)
+- `DES`
+- `AES256`
+
 ### Encrypt String Value
 
 ```
 $ cryptstr enc <plain_string_value> -k <key_of_config_file> -v <iv_of_config_file>
+$ cryptstr enc <plain_string_value> -k <key_of_config_file> -v <iv_of_config_file> -a <algorithms>
 ```
 
 ### Decrypt String Value
 
 ```
 $ cryptstr dec <encrypted_string_value> -k <key_of_config_file> -v <iv_of_config_file>
+$ cryptstr dec <encrypted_string_value> -k <key_of_config_file> -v <iv_of_config_file> -a <algorithms>
 ```

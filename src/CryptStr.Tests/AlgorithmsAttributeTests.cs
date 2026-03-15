@@ -9,6 +9,7 @@ public class AlgorithmsAttributeTests
     [Theory]
     [InlineData(nameof(SupportAlgorithms.DES))]
     [InlineData(nameof(SupportAlgorithms.TripleDES))]
+    [InlineData(nameof(SupportAlgorithms.AES256))]
     public void IsValid_ShouldAcceptSupportedAlgorithms(string value)
     {
         var attribute = new AlgorithmsAttribute();
@@ -31,5 +32,6 @@ public class AlgorithmsAttributeTests
         result.ErrorMessage.ShouldContain("Specified algorithms is not support.");
         result.ErrorMessage.ShouldContain("TripleDES");
         result.ErrorMessage.ShouldContain("DES");
+        result.ErrorMessage.ShouldContain(nameof(SupportAlgorithms.AES256));
     }
 }

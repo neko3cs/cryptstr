@@ -45,6 +45,20 @@ public class CryptorTests
         decrypted.ShouldBe(value);
     }
 
+    [Theory]
+    [MemberData(nameof(PlainTextValues))]
+    public void AES256Cryptor_ShouldRoundTripPlainText(string value)
+    {
+        var (key, iv) = AES256Cryptor.Generate();
+        var cryptor = new AES256Cryptor(key, iv);
+
+        var encrypted = cryptor.Encrypt(value);
+        var decrypted = cryptor.Decrypt(encrypted);
+
+        encrypted.ShouldNotBeNullOrEmpty();
+        decrypted.ShouldBe(value);
+    }
+
     [Fact]
     public void DESGenerate_ShouldReturnBase64EncodedKeyAndIVWithExpectedLengths()
     {
@@ -64,5 +78,14 @@ public class CryptorTests
 
         ivBytes.Length.ShouldBe(8);
         new[] { 16, 24 }.ShouldContain(keyBytes.Length);
+    }
+
+    [Fact]
+    public void AES256Generate_ShouldReturnBase64EncodedKeyAndIVWithExpectedLengths()
+    {
+        var (key, iv) = AES256Cryptor.Generate();
+
+        Convert.FromBase64String(key).Length.ShouldBe(32);
+        Convert.FromBase64String(iv).Length.ShouldBe(16);
     }
 }
