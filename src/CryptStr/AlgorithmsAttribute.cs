@@ -15,11 +15,10 @@ Support algorithms kind is here.
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (Enum.GetNames(typeof(SupportAlgorithms)).Contains((string)value))
+            if (Enum.GetNames<SupportAlgorithms>().Contains((string)value))
             {
                 return ValidationResult.Success;
             }
-
             return new ValidationResult(InvalidMessage);
         }
     }
