@@ -1,52 +1,11 @@
-﻿using System;
-using System.IO;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace CryptStr
 {
-    public class DESCryptor(string key, string iv) : ICryptor
+    public class DESCryptor(string key, string iv) : SymmetricCryptorBase(key, iv)
     {
-        private readonly string Key = key;
-        private readonly string IV = iv;
+        protected override SymmetricAlgorithm CreateAlgorithm() => DES.Create();
 
-        public string Encrypt(string value)
-        {
-            using var provider = DES.Create();
-            var encryptor = provider.CreateEncryptor(Convert.FromBase64String(Key), Convert.FromBase64String(IV));
-
-            using var memoryStream = new MemoryStream();
-            using var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
-            var bytes = Encoding.UTF8.GetBytes(value);
-            cryptoStream.Write(bytes, 0, bytes.Length);
-            cryptoStream.FlushFinalBlock();
-
-            return Convert.ToBase64String(memoryStream.ToArray());
-        }
-
-        public string Decrypt(string value)
-        {
-            using var provider = DES.Create();
-            var decryptor = provider.CreateDecryptor(Convert.FromBase64String(Key), Convert.FromBase64String(IV));
-
-            var bytes = Convert.FromBase64String(value);
-            using var memoryStream = new MemoryStream(bytes);
-            using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-            using var streamReader = new StreamReader(cryptoStream);
-
-            return streamReader.ReadToEnd();
-        }
-
-        public static (string Key, string IV) Generate()
-        {
-            using var provider = DES.Create();
-            provider.GenerateKey();
-            provider.GenerateIV();
-
-            return (
-                Key: Convert.ToBase64String(provider.Key),
-                IV: Convert.ToBase64String(provider.IV)
-            );
-        }
+        public static (string Key, string IV) Generate() => GenerateKeyAndIV(DES.Create);
     }
 }
