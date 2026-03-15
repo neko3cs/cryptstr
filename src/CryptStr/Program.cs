@@ -32,7 +32,7 @@ namespace CryptStr
             [Algorithms] string algorithms = DefaultAlgorithms
         )
         {
-            var cryptor = CreateCryptor(key, iv, algorithms);
+            var cryptor = AlgorithmRegistry.CreateCryptor(key, iv, algorithms);
             Console.WriteLine(cryptor.Encrypt(value));
             return 0;
         }
@@ -51,7 +51,7 @@ namespace CryptStr
             [Algorithms] string algorithms = DefaultAlgorithms
         )
         {
-            var cryptor = CreateCryptor(key, iv, algorithms);
+            var cryptor = AlgorithmRegistry.CreateCryptor(key, iv, algorithms);
             Console.WriteLine(cryptor.Decrypt(value));
             return 0;
         }
@@ -62,7 +62,7 @@ namespace CryptStr
         /// <param name="algorithms">-a, Encryption algorithm.</param>
         public static void Generate([Algorithms] string algorithms = DefaultAlgorithms)
         {
-            var (key, iv) = GenerateKeyAndIV(algorithms);
+            var (key, iv) = AlgorithmRegistry.GenerateKeyAndIV(algorithms);
             File.WriteAllText(
                 Path.Combine(Directory.GetCurrentDirectory(), "cryptstr.json"),
                 JsonSerializer.Serialize(new
@@ -72,21 +72,5 @@ namespace CryptStr
                 })
             );
         }
-
-        private static ICryptor CreateCryptor(string key, string iv, string algorithms) => algorithms switch
-        {
-            nameof(SupportAlgorithms.TripleDES) => new TripleDESCryptor(key, iv),
-            nameof(SupportAlgorithms.DES) => new DESCryptor(key, iv),
-            nameof(SupportAlgorithms.AES256) => new AES256Cryptor(key, iv),
-            _ => throw new ArgumentException("Unsupported algorithms.")
-        };
-
-        private static (string Key, string IV) GenerateKeyAndIV(string algorithms) => algorithms switch
-        {
-            nameof(SupportAlgorithms.TripleDES) => TripleDESCryptor.Generate(),
-            nameof(SupportAlgorithms.DES) => DESCryptor.Generate(),
-            nameof(SupportAlgorithms.AES256) => AES256Cryptor.Generate(),
-            _ => throw new ArgumentException("Unsupported algorithms.")
-        };
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -6,13 +6,7 @@ namespace CryptStr
 {
     public class AlgorithmsAttribute : ValidationAttribute
     {
-        private static readonly string InvalidMessage =
-@"Specified algorithms is not support.
-Support algorithms kind is here.
-- TripleDES (default)
-- DES
-- AES256
-";
+        private static readonly string InvalidMessage = CreateInvalidMessage();
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -23,7 +17,12 @@ Support algorithms kind is here.
             return new ValidationResult(InvalidMessage);
         }
 
-        internal static bool IsSupported(string value) =>
-            Enum.GetNames<SupportAlgorithms>().Contains(value);
+        private static string CreateInvalidMessage() =>
+$@"Specified algorithms is not support.
+Support algorithms kind is here.
+{string.Join(Environment.NewLine, AlgorithmRegistry.SupportedNames.Select(static algorithm => $"- {algorithm}"))}
+";
+
+        internal static bool IsSupported(string value) => AlgorithmRegistry.IsSupported(value);
     }
 }
