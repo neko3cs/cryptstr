@@ -4,5 +4,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="CryptStr.Tests/CryptStr.Tests.csproj" />
   <Project Path="CryptStr/CryptStr.csproj" />
 </Solution>
