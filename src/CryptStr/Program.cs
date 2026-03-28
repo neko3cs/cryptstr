@@ -7,7 +7,7 @@ namespace CryptStr
 {
     internal static class Program
     {
-        private const string DefaultAlgorithms = nameof(SupportAlgorithms.TripleDES);
+        private const string DefaultAlgorithms = nameof(SupportAlgorithms.AES256);
 
         public static void Main(string[] args)
         {
