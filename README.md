@@ -29,9 +29,9 @@ That would be easier to use this command.
 
 ### Supported Algorithms
 
-- `TripleDES` (default)
+- `AES256` (default)
+- `TripleDES`
 - `DES`
-- `AES256`
 
 ### Encrypt String Value
 
